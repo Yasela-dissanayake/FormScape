@@ -24,6 +24,12 @@ const Upload = ({ onComplete }: UploadProps = {}) => {
     setProgress(0);
 
     const reader = new FileReader();
+
+    reader.onerror = () => {
+      setFile(null);
+      setProgress(0);
+    };
+
     reader.onload = () => {
       const base64Data = reader.result as string;
       const interval = setInterval(() => {
@@ -62,8 +68,13 @@ const Upload = ({ onComplete }: UploadProps = {}) => {
     if (!isSignedIn) return;
     setIsDragging(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      processFile(e.dataTransfer.files[0]);
+    if (!isSignedIn) return;
+
+    const droppedFile = e.dataTransfer.files[0];
+    const allowedTypes = ["image/jpeg", "image/png"];
+
+    if (droppedFile && allowedTypes.includes(droppedFile.type)) {
+      processFile(droppedFile);
     }
   };
 

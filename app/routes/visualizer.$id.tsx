@@ -12,8 +12,8 @@ const VisualizerId = () => {
       <div className="visualizer">
         {initialImage && (
           <div>
-            <h2>Initial Image</h2>
-            <img src={initialImage} alt="Source" />
+            <h2>Source Image</h2>
+            <img src={initialImage} alt="source" />
           </div>
         )}
       </div>
